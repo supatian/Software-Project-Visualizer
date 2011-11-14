@@ -15,8 +15,9 @@ body, html{
 
 #controls{
   width : 100%;
-  height : 40px;
-  background-color : #dcdcdc;
+  height : 43px;
+  background-image: -moz-linear-gradient(top, #95B9C7, white);
+  background-image: -webkit-gradient(linear,left top,right bottom,color-stop(0, #95B9C7),color-stop(1, white));	
   border-top : none;
   border-left : none;
   border-right : none;
@@ -29,16 +30,44 @@ body, html{
   margin: 0px 0px 0px 2px;
   float : left;
   cursor : pointer;
-  font-family: Georgia, serif;
+  font-family: Verdana;
   font-size : 12px;
   background-color : #efefef;
 }
 
+#new #subMenu {
+	position: relative;
+	-moz-transform: translate(0, 5px);
+	-webkit-transform: translate(0, 5px);
+	height: 5;
+	z-index: -1;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+#new #subMenu li {
+	display: block;
+	text-align: center;
+}
+
+#new #subMenu .btn{
+  padding: 17px 8px 13px 8px;
+  height : 10px;
+  margin: 0px 0px 0px 2px;
+  float: none;
+  cursor : pointer;
+  font-family: Verdana;
+  font-size : 12px;
+  background-color : #efefef;
+ }
+
+#new:hover > #subMenu { z-index: 2 }
+
 #logo{
   position : relative;
-  float : left;
-  font-family : Georgia, serif;
-  font-size : 20px;
+  float : right;
+  font-family : Impact;
+  font-size : 24px;
   color : black;
   padding-left : 5px;
   margin : 10px;
@@ -53,6 +82,28 @@ body, html{
   background-color : #dcdcdc;
   z-index : 6000;
   display : none;
+}
+
+#textbox2{
+  position : absolute;
+  bottom : 5px;
+  right : 5px;
+  border: solid; 
+  border-color:gray;
+  z-index : 6000;
+  display : none;
+  -webkit-box-shadow: -5px -5px 5px #999;
+}
+
+#textbox1{
+  position : absolute;
+  bottom : 5px;
+  left : 5px;
+  border: solid; 
+  border-color:gray;
+  z-index : 6000;
+  display : none;
+  -webkit-box-shadow: 5px -5px 5px #999;
 }
 
 #files{

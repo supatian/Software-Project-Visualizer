@@ -16,6 +16,8 @@ function NodeGraph(){
   var hitConnect;
   var key = {};
   var SHIFT = 16;
+  var defaultWidth = 150;
+  var defaultHeight = 50;
   var topHeight = $("#controls").height();
   
   var paper = new Raphael("canvas", "100", "100");
@@ -281,7 +283,7 @@ function NodeGraph(){
            
     n.append("<div class='bar'/>");
     var bar = $(".node .bar").last();
-    bar.css({"height" : "10px", 
+    bar.css({"height" : "20px", 
              "background-color" : "gray", 
              "padding" : "0", "margin": "0",
              "font-size" : "9px", "cursor" : "pointer"});
@@ -327,6 +329,46 @@ function NodeGraph(){
                  "background-color" : "white", "font-size" : "1px",
                  "border" : "1px solid gray",
                  "cursor" : "pointer"});
+		
+	n.append("<div class='sourcecode'>SRC");		 
+	var sourcecode = $(".node .sourcecode").last();
+    
+    sourcecode.css({"position" : "absolute" , "z-index" : 10,
+                 "width" : "30px", "height" : "15px",
+                 "left" : nodeWidth + 8 - n.width() , "top" : nodeHeight - n.height(),
+                 "font-size" : "10px",
+				 "font-family": "Arial", "text-align": "center",
+                 "border" : "1px solid gray",				 
+				 "border-radius": "5px",
+				 "box-shadow": "inset 0 35px 35px -18px #95B9C7, inset 3px 0 12px #600",
+				 "background-color": "white",
+                 "cursor" : "pointer"});
+				 
+    sourcecode.hover(function(){
+        sourcecode.css("background-color","gray")},
+		function(){
+        sourcecode.css("background-color","white");
+      });
+	  
+	n.append("<div class='variable'>VAR");		 
+	var variable = $(".node .variable").last();
+    
+    variable.css({"position" : "absolute" , "z-index" : 10,
+                 "width" : "30px", "height" : "15px",
+                 "left" : nodeWidth + 40 - n.width() , "top" : nodeHeight - n.height(),
+                 "font-size" : "10px",
+				 "font-family": "Arial", "text-align": "center",
+                 "border" : "1px solid gray",
+				 "border-radius": "5px",
+				 "box-shadow": "inset 0 35px 35px -18px #95B9C7, inset 3px 0 12px #600",
+				 "background-color": "white",
+                 "cursor" : "pointer"});
+				 
+    variable.hover(function(){
+        variable.css("background-color","gray")},
+		function(){
+        variable.css("background-color","white");
+      });
     
     n.append("<div class='left'>");
     n.append("<div class='top'>");
@@ -442,7 +484,7 @@ function NodeGraph(){
     resizer.mousedown(function(e){
       currentNode = curr;
       e.preventDefault();
-      startDrag(resizer, {left : 20, top : 20, right : 500, bottom : 500},
+      startDrag(resizer, {left : 60, top : 40, right : 500, bottom : 500},
       function(){
         var loc = resizer.position();
         var x = loc.left;
@@ -458,6 +500,16 @@ function NodeGraph(){
         positionBottom();
         updateConnections();
       });
+    });
+	
+	sourcecode.mousedown(function(e){
+      var openWin = $("#textbox2");
+	  openWin.toggle();
+    });
+	
+    variable.mousedown(function(e){
+      var openWin = $("#textbox1");
+	  openWin.toggle();
     });
     
     bar.mousedown(function(e){
@@ -515,9 +567,6 @@ function NodeGraph(){
   this.addNode = function(x, y, w, h, noDelete){
     return new Node(x, y, w, h, noDelete);
   }
-  
-  var defaultWidth = 100;
-  var defaultHeight = 50;
   
   this.addNodeAtMouse = function(){
     //alert("Zevan");
