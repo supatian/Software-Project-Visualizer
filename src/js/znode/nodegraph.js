@@ -245,9 +245,9 @@ function NodeGraph(){
   
   this.addNodeAtMouse = function(){
     //alert("Zevan");
-    var w = currentNode.width() || defaultWidth;
-    var h = currentNode.height () || defaultHeight;
-    var temp = this.addNode(mouseX, mouseY + 30, w, h);
+    var w = defaultWidth;
+    var h = defaultHeight;
+    var temp = this.addNode(mouseX, mouseY + 30, defaultWidth, defaultHeight);
     currentNode = temp;
     currentConnection = null;
   }

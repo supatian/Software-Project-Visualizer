@@ -8,7 +8,6 @@
     this.id = nId;
     
     var curr = this;
-
     
     canvas.append("<div class='node'/>");
     var n = $(".node").last();
@@ -85,8 +84,6 @@
                  "background-color" : "white", "font-size" : "1px",
                  "border" : "1px solid gray",
                  "cursor" : "pointer"});
-		
-	
     
     n.append("<div class='left'>");
     n.append("<div class='top'>");
@@ -147,15 +144,20 @@
         positionRight();
         positionTop();
         positionBottom();
+		updateConnections();
       });
     });
-	
+
+    function updateConnections(){
+       // empty method
+    }
     
     bar.mousedown(function(e){
       currentNode = curr;
       n.css("z-index", zindex++);
       e.preventDefault();
-      startDrag(n, {left : 10, top: 40, right : win.width() - n.width() - 10, bottom : win.height() - n.height() - 10});
+      startDrag(n, {left : 10, top: 40, right : win.width() - n.width() - 10, bottom : win.height() - n.height() - 10},
+      updateConnections);
     });
     
     n.mouseenter(function(){

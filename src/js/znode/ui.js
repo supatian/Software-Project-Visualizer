@@ -1,6 +1,6 @@
 $(function(){
   
-  var graph = new NodeGraph();  
+  var graph = new NodeGraph();
   
   // consider moving to NodeGraph
   $("#canvas").mouseup(function(e){
