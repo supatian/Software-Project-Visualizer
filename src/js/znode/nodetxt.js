@@ -11,22 +11,27 @@ extend = function(subClass, baseClass) {
  function NodeTxt(xp, yp, w, h, noDelete, forceId){
  
      // call the baseclass constructor
-     Node.baseConstructor.call(this, xp, yp, w, h, noDelete, forceId); 
+    Node.baseConstructor.call(this, xp, yp, w, h, noDelete, forceId); 
+	
+	var n = $(".node").last();
+	n.css("display","none");
 	 
-	var txt = $(".node .txt").last();
-    txt.css("position","absolute");
+	var txt = this.txt;
    
-    txt.css({"width" : nodeWidth - 5,
-             "height" : nodeHeight - bar.height() - 5,
-             "resize" : "none", "overflow" : "hidden",
-             "font-size" : "12px" , "font-family" : "sans-serif",
-             "border" : "none","z-index":4});
+    txt.css({"white-space" : "nowrap",
+	         "overflow" : "scroll",
+             "overflow-y": "scroll",
+             "overflow-x": "scroll"});
           
     this.txt = txt;
+	
+	this.toggle = function(){	
+	   if(n.css("display") == 'block')
+          n.css("display","none");
+       else
+          n.css("display","block");
+    }
  }
  
 extend(Node, NodeBase);
-
-
-
  

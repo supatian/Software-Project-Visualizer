@@ -5,7 +5,7 @@ extend = function(subClass, baseClass) {
      subClass.prototype = new inheritance();
      subClass.prototype.constructor = subClass;
      subClass.baseConstructor = baseClass;
-     subClass.superClass = baseClass.prototype;   
+     subClass.superClass = baseClass.prototype;  
      }
  
  function Node(xp, yp, w, h, noDelete, forceId){
@@ -16,25 +16,48 @@ extend = function(subClass, baseClass) {
 	  this.connections = {};
      var connectionIndex = 0;
 	 var curr = this;
+	 var topMargin = 50;
+	 var nodeTxtWidth = win.width()/5;
+	 var nodeTxtHeight = win.height()/2-topMargin;
     
      this.addConnection = function(c){
       curr.connections[connectionIndex++] = c;
       return c;
     }
-    
+   
    	var n = $(".node").last();
+	
+	if (!noDelete){
+      n.append("<div class='ex'>X<\/div>");
+      var ex = $(".node .ex").last();
+      ex.css({"position":"absolute","padding-right" : 2, "padding-top" : 1, "padding-left" : 2,
+              "color" : "white", "font-family" : "sans-serif",
+              "top" : 0, "left": 0, "cursor": "pointer",
+              "font-size" : "7px", "background-color" : "gray", "z-index" : 100});
+      ex.hover(function(){
+        ex.css("color","black");
+      }, function(){
+        ex.css("color","white");
+      }).click(function(){
+      
+        if (confirm("Are you sure you want to delete this node?")){
+          curr.remove();
+        }
+      });
+    }
+	
 	var nodeWidth = n.width();
     var nodeHeight = n.height();
 	n.append("<div class='sourcecode'>SRC");		 
 	var sourcecode = $(".node .sourcecode").last();
     
     sourcecode.css({"position" : "absolute" , "z-index" : 10,
-                 "width" : "30px", "height" : "15px",
-                 "left" : nodeWidth + 8 - n.width() , "top" : nodeHeight - n.height(),
-                 "font-size" : "10px",
-				 "font-family": "Arial", "text-align": "center",
-                 "border" : "1px solid gray",				 
-				 "border-radius": "5px",
+                 "width" : "28px", "height" : "13px",
+                 "left" : nodeWidth + 9 - n.width() , "top" : nodeHeight + 2 - n.height(),
+                 "font-size" : "11px",
+				 "font-family": "Monospace", "text-align": "center",
+                 "border" : "1px solid white",				 
+				 "border-radius": "3px",
 				 "box-shadow": "inset 0 35px 35px -18px #95B9C7, inset 3px 0 12px #600",
 				 "background-color": "white",
                  "cursor" : "pointer"});
@@ -49,12 +72,12 @@ extend = function(subClass, baseClass) {
 	var variable = $(".node .variable").last();
     
     variable.css({"position" : "absolute" , "z-index" : 10,
-                 "width" : "30px", "height" : "15px",
-                 "left" : nodeWidth + 40 - n.width() , "top" : nodeHeight - n.height(),
-                 "font-size" : "10px",
-				 "font-family": "Arial", "text-align": "center",
-                 "border" : "1px solid gray",
-				 "border-radius": "5px",
+                 "width" : "28px", "height" : "13px",
+                 "left" : nodeWidth + 40 - n.width() , "top" : nodeHeight + 2 - n.height(),
+                 "font-size" : "11px",
+				 "font-family": "Monospace", "text-align": "center",
+                 "border" : "1px solid white",
+				 "border-radius": "3px",
 				 "box-shadow": "inset 0 35px 35px -18px #95B9C7, inset 3px 0 12px #600",
 				 "background-color": "white",
                  "cursor" : "pointer"});
@@ -91,19 +114,6 @@ extend = function(subClass, baseClass) {
       point.y = nLoc.top - topHeight + loc.top + 5;
       return point;
     }
-    
-    function updateConnections(){
-       for (var i in curr.connections){
-         var c = curr.connections[i];
-         if (!c.removed){
-           var nodeA = c.startNode.connectionPos(c.startConnection);
-           var nodeB = c.endNode.connectionPos(c.endConnection);
-           c.attr("path","M " + nodeA.x + " " + nodeA.y + " L " + nodeB.x + " " + nodeB.y);
-            
-         }
-       }
-    }
-    this.updateConnections = updateConnections;
         
    function addLink(e){
       currentNode = curr;
@@ -146,20 +156,23 @@ extend = function(subClass, baseClass) {
    }
 	
 	sourcecode.mousedown(function(e){
-    currentNode = new NodeTxt(win.width() / 2, win.height() / 2, 300, 200);
-	 
+	    srcNode.toggle();
+        currentNode = srcNode;
     });
 	
     variable.mousedown(function(e){
-      var openWin = $("#textbox1");
-	  openWin.toggle();
+       varNode.toggle();
+       currentNode = varNode;
     });
 	
 	this.txt = $(".node .txt").last();
+	
+    var srcNode = new NodeTxt(10, topMargin, nodeTxtWidth, win.height()/2-topMargin);
+	this.srcNode = srcNode;
+	//var varNode = new NodeTxt(10, win.height()/2, nodeTxtWidth, win.height()/2-topMargin);
  }
  
 extend(Node, NodeBase);
-
 
 
  

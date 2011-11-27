@@ -1,12 +1,11 @@
 function NodeGraph(){  
   var connectionId = 0;
   var nodeId = 0;  
-  var pathEnd = {};
   var hitConnect;
   var key = {};
   var SHIFT = 16;
   var defaultWidth = 150;
-  var defaultHeight = 50;  
+  var defaultHeight =100;  
   
   canvas = $("#canvas");
   overlay = $("#overlay");
@@ -223,7 +222,7 @@ function NodeGraph(){
   
  function clear(){
     nodeId = 0;
-    connectionsId = 0;
+    connectionId = 0;
     for (var i in nodes){
       nodes[i].remove();
     }
@@ -236,10 +235,13 @@ function NodeGraph(){
     currenNode = null;
   }
   
-  this.addNode = function(xp, yp, w, h, noDelete, forceId){  
-    var node = new Node(xp, yp, w, h, noDelete, forceId);
+  this.addNode = function(xp, yp, w, h, noDelete, forcedId){  
+     if (forcedId){
+        nodeId = forcedId;
+	 }
+    var node = new Node(xp, yp, w, h, noDelete, nodeId);
 	nodes[nodeId] = node;
-    nodeId++;
+    nodeId+=2;
     return node; 
   }
   
@@ -253,9 +255,13 @@ function NodeGraph(){
   }
   
   function defaultNode(){  
+    nodeId = 0;
     var temp = new Node(win.width() / 2 - defaultWidth / 2, 
                         win.height() / 2 - defaultHeight / 2,
-                        defaultWidth, defaultHeight, true);
+                        defaultWidth, defaultHeight, true, nodeId);
+	
+	nodes[nodeId] = temp;
+	nodeId+=2;
     temp.txt[0].focus();
     currentNode = temp;
   }
@@ -266,7 +272,7 @@ function NodeGraph(){
     for (var i in data.nodes){
       var n = data.nodes[i];
       var ex = (i == "0") ? true : false;
-      var temp = new Node(n.x, n.y, n.width, n.height, ex, n.id);
+	  var temp = this.addNode(n.x, n.y, n.width, n.height, ex, n.id);
       var addreturns = n.txt.replace(/\\n/g,'\n');
       temp.txt.val(addreturns);
     }
@@ -309,10 +315,11 @@ function NodeGraph(){
   }
   
   function addSlashes(str) {
-    str = str.replace(/\\/g,'\\\\');
+	str = str.replace(/\\/g,'\\\\');
     str = str.replace(/\'/g,'\\\'');
-    str = str.replace(/\"/g,'\\"');
+    str = str.replace(/\"/g,'\\\\"');
     str = str.replace(/\0/g,'\\0');
+	str = str.replace(/\t/g,'    ');
     str = str.replace(/\n/g,'\\\\n');
     return str;
   }

@@ -9,7 +9,8 @@
   var connections = {};  
   var newNode;  
   var nodes = {};
-  var topHeight;
+  var topHeight;  
+  var pathEnd = {};  
   
   function showOverlay(){
     overlay.show();

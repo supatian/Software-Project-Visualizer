@@ -1,11 +1,6 @@
  function NodeBase(xp, yp, w, h, noDelete, forceId){
-    var nId; 	
 	var zindex = 1;
-    
-    if (forceId){
-       nId = forceId;
-    }
-    this.id = nId;
+    this.id = forceId;
     
     var curr = this;
     
@@ -42,34 +37,14 @@
              "background-color" : "gray", 
              "padding" : "0", "margin": "0",
              "font-size" : "9px", "cursor" : "pointer"});
-             
-             
-    if (!noDelete){
-      n.append("<div class='ex'>X<\/div>");
-      var ex = $(".node .ex").last();
-      ex.css({"position":"absolute","padding-right" : 2, "padding-top" : 1, "padding-left" : 2,
-              "color" : "white", "font-family" : "sans-serif",
-              "top" : 0, "left": 0, "cursor": "pointer",
-              "font-size" : "7px", "background-color" : "gray", "z-index" : 100});
-      ex.hover(function(){
-        ex.css("color","black");
-      }, function(){
-        ex.css("color","white");
-      }).click(function(){
-      
-        if (confirm("Are you sure you want to delete this node?")){
-          curr.remove();
-        }
-      });
-    }
    
-    n.append("<textarea class='txt' spellcheck='false' />");
+    n.append("<textarea class='txt' spellcheck='false' wrap='off' />");
     var txt = $(".node .txt").last();
     txt.css("position","absolute");
    
     txt.css({"width" : nodeWidth - 5,
              "height" : nodeHeight - bar.height() - 5,
-             "resize" : "none", "overflow" : "hidden",
+             "resize" : "none", "overflow" : "auto",
              "font-size" : "12px" , "font-family" : "sans-serif",
              "border" : "none","z-index":4});
           
@@ -149,8 +124,17 @@
     });
 
     function updateConnections(){
-       // empty method
+       for (var i in curr.connections){
+         var c = curr.connections[i];
+         if (!c.removed){
+           var nodeA = c.startNode.connectionPos(c.startConnection);
+           var nodeB = c.endNode.connectionPos(c.endConnection);
+           c.attr("path","M " + nodeA.x + " " + nodeA.y + " L " + nodeB.x + " " + nodeB.y);
+            
+         }
+       }
     }
+	this.updateConnections = updateConnections;
     
     bar.mousedown(function(e){
       currentNode = curr;

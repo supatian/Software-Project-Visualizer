@@ -84,28 +84,6 @@ body, html{
   display : none;
 }
 
-#textbox2{
-  position : absolute;
-  bottom : 5px;
-  right : 5px;
-  border: solid; 
-  border-color:gray;
-  z-index : 6000;
-  display : none;
-  -webkit-box-shadow: -5px -5px 5px #999;
-}
-
-#textbox1{
-  position : absolute;
-  bottom : 5px;
-  left : 5px;
-  border: solid; 
-  border-color:gray;
-  z-index : 6000;
-  display : none;
-  -webkit-box-shadow: 5px -5px 5px #999;
-}
-
 #files{
   position : relative;
   margin : 10px;
@@ -162,3 +140,5 @@ li, .file {
 textarea, input{ 
   outline:none;
 }
+
+
