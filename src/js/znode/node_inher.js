@@ -142,8 +142,8 @@ extend = function(subClass, baseClass) {
 	
 	
 	this.txt = $(".node .txt").last();
-	
-    var srcNode = new NodeSrc(10, topMargin, nodeTxtWidth, win.height()/2-topMargin, srcCode, "");
+
+    var srcNode = new NodeSrc(10, topMargin, nodeTxtWidth, win.height()/2-topMargin, srcCode, findClassName(srcCode));
 	this.srcNode = srcNode;
  }
  

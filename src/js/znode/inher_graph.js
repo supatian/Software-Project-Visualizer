@@ -233,14 +233,14 @@ function InherGraph(){
     currenNode = null;
   }
   
-  function addNode(xp, yp, w, h) {
-    var node = new NodeInher(xp, yp, w, h, false);
+  function addNode(xp, yp, w, h, id, srctxt) {
+    var node = new NodeInher(xp, yp, w, h, false, id, srctxt);
 	nodes[node.id] = node;
     return node; 
   }
   
-  this.addNode = function(xp, yp, w, h, noDelete){  
-    return addNode(xp, yp, w, h, noDelete);
+  this.addNode = function(xp, yp, w, h, id, srctxt){  
+    return addNode(xp, yp, w, h, id, srctxt);
   }
     
   this.addNodeAtMouse = function(){
@@ -255,12 +255,12 @@ function InherGraph(){
   this.fromJSON = function(data){
     clear();
     for (var i in data.nodes){
-      var n = data.nodes[i];
-	  var temp = this.addNode(n.x, n.y, n.width, n.height, false, n.id, n.src);
-      var addreturns = n.txt.replace(/\\n/g,'\n');
-      temp.txt.val(addreturns);
-	  addreturns = n.src.replace(/\\n/g,'\n');
-	  temp.srcNode.txt.val(addreturns);
+      var n = data.nodes[i];	  
+      var txt1 = n.txt.replace(/\\n/g,'\n');
+	  var txt2 = n.src.replace(/\\n/g,'\n');
+	  var temp = this.addNode(n.x, n.y, n.width, n.height, n.id, txt2);
+      temp.txt.val(txt1);	  
+	  temp.srcNode.txt.val(txt2);
     }
     for (i in data.connections){
       var c = data.connections[i];

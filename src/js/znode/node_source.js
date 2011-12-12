@@ -11,7 +11,7 @@ extend = function(subClass, baseClass) {
  function NodeSrc(xp, yp, w, h, strSrc, className){
  
      // call the baseclass constructor
-    Node.baseConstructor.call(this, xp, yp, w, h); 
+    NodeSrc.baseConstructor.call(this, xp, yp, w, h); 
 	
 	var n = $(".node").last();
 	n.css("display","none");
@@ -51,5 +51,5 @@ extend = function(subClass, baseClass) {
     });
  }
  
-extend(Node, NodeBase);
+extend(NodeSrc, NodeBase);
  
