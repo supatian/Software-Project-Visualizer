@@ -1,6 +1,5 @@
-function NodeGraph(){  
+function InherGraph(){  
   var connectionId = 0;
-  var nodeId = 0;  
   var hitConnect;
   var key = {};
   var SHIFT = 16;
@@ -42,8 +41,7 @@ function NodeGraph(){
   function connectNode(dir){
     var node, x, y;
     dir = dir.toLowerCase();
-    
-      
+	  
     if (dir == "left"){
       x = pathEnd.x + 5;
       y = pathEnd.y + topHeight - currentNode.height() / 2;
@@ -58,8 +56,7 @@ function NodeGraph(){
       x = pathEnd.x - currentNode.width() / 2;
       y = pathEnd.y + topHeight - 5 - currentNode.height();
     }
-    
- 
+     
     node = addNode(x, y, currentNode.width(), currentNode.height());
     saveConnection(node, dir);
     currentNode = node;
@@ -224,27 +221,28 @@ function NodeGraph(){
     nodeId = 0;
     connectionId = 0;
     for (var i in nodes){
+	  if(nodes[i]) {
       nodes[i].remove();
+	  }
     }
   }
   
   this.clearAll = function(){
     clear();
-    defaultNode();
     currentConnection = null;
     currenNode = null;
   }
   
-  this.addNode = function(xp, yp, w, h, noDelete, forcedId){  
-     if (forcedId){
-        nodeId = forcedId;
-	 }
-    var node = new Node(xp, yp, w, h, noDelete, nodeId);
-	nodes[nodeId] = node;
-    nodeId+=2;
+  function addNode(xp, yp, w, h) {
+    var node = new NodeInher(xp, yp, w, h, false);
+	nodes[node.id] = node;
     return node; 
   }
   
+  this.addNode = function(xp, yp, w, h, noDelete){  
+    return addNode(xp, yp, w, h, noDelete);
+  }
+    
   this.addNodeAtMouse = function(){
     //alert("Zevan");
     var w = defaultWidth;
@@ -254,27 +252,15 @@ function NodeGraph(){
     currentConnection = null;
   }
   
-  function defaultNode(){  
-    nodeId = 0;
-    var temp = new Node(win.width() / 2 - defaultWidth / 2, 
-                        win.height() / 2 - defaultHeight / 2,
-                        defaultWidth, defaultHeight, true, nodeId);
-	
-	nodes[nodeId] = temp;
-	nodeId+=2;
-    temp.txt[0].focus();
-    currentNode = temp;
-  }
-  defaultNode();
-
   this.fromJSON = function(data){
     clear();
     for (var i in data.nodes){
       var n = data.nodes[i];
-      var ex = (i == "0") ? true : false;
-	  var temp = this.addNode(n.x, n.y, n.width, n.height, ex, n.id);
+	  var temp = this.addNode(n.x, n.y, n.width, n.height, false, n.id, n.src);
       var addreturns = n.txt.replace(/\\n/g,'\n');
       temp.txt.val(addreturns);
+	  addreturns = n.src.replace(/\\n/g,'\n');
+	  temp.srcNode.txt.val(addreturns);
     }
     for (i in data.connections){
       var c = data.connections[i];
@@ -291,7 +277,8 @@ function NodeGraph(){
       json += '"y" : ' + n.y() + ', ';
       json += '"width" : ' + n.width() + ', ';
       json += '"height" : ' + n.height() + ', ';
-      json += '"txt" : "' + addSlashes(n.txt.val()) + '"},';
+      json += '"txt" : "' + addSlashes(n.txt.val()) + '",';
+	  json += '"src" : "' + addSlashes(n.srcNode.txt.val()) + '"},';
     }
     json = json.substr(0, json.length - 1);
     json += '], "connections" : [';
@@ -312,16 +299,6 @@ function NodeGraph(){
     }
     json += ']}';
     return json;
-  }
-  
-  function addSlashes(str) {
-	str = str.replace(/\\/g,'\\\\');
-    str = str.replace(/\'/g,'\\\'');
-    str = str.replace(/\"/g,'\\\\"');
-    str = str.replace(/\0/g,'\\0');
-	str = str.replace(/\t/g,'    ');
-    str = str.replace(/\n/g,'\\\\n');
-    return str;
   }
 
 }

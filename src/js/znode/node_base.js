@@ -1,16 +1,16 @@
- function NodeBase(xp, yp, w, h, noDelete, forceId){
+ function NodeBase(xp, yp, w, h, noDelete){
 	var zindex = 1;
-    this.id = forceId;
     
     var curr = this;
     
     canvas.append("<div class='node'/>");
     var n = $(".node").last();
-    n.css({"position" : "absolute",      
+    n.css({"position" : "absolute",   
            "left" : xp, "top" : yp,
            "width" : w, "height" : h,   
            "border" : "1px solid gray",
-           "background-color" : "white"});
+		   "border-radius": "9px",
+           "background-color" : nodeBgColor});
     n.css("z-index", zindex++);
            
     this.content = n;
@@ -34,16 +34,17 @@
     n.append("<div class='bar'/>");
     var bar = $(".node .bar").last();
     bar.css({"height" : "20px", 
-             "background-color" : "gray", 
-             "padding" : "0", "margin": "0",
+             "background-color" : nodeBgColor, 
+             "padding" : "0", "margin": "3",
+			 "border-radius": "7px",
              "font-size" : "9px", "cursor" : "pointer"});
    
     n.append("<textarea class='txt' spellcheck='false' wrap='off' />");
     var txt = $(".node .txt").last();
     txt.css("position","absolute");
    
-    txt.css({"width" : nodeWidth - 5,
-             "height" : nodeHeight - bar.height() - 5,
+    txt.css({"width" : nodeWidth - textAreaMargin,
+             "height" : nodeHeight - bar.height() - textAreaMargin,
              "resize" : "none", "overflow" : "auto",
              "font-size" : "12px" , "font-family" : "sans-serif",
              "border" : "none","z-index":4});
@@ -54,7 +55,7 @@
     var resizer = $(".node .resizer").last();
     
     resizer.css({"position" : "absolute" , "z-index" : 10,
-                 "width" : "10px", "height" : "10px",
+                 "width" : resizerWidth, "height" : resizerWidth,
                  "left" : nodeWidth - 11, "top" : nodeHeight - 11,
                  "background-color" : "white", "font-size" : "1px",
                  "border" : "1px solid gray",
@@ -105,15 +106,15 @@
     resizer.mousedown(function(e){
       currentNode = curr;
       e.preventDefault();
-      startDrag(resizer, {left : 60, top : 40, right : 500, bottom : 500},
+      startDrag(resizer, {left : 100, top : 40, right : 500, bottom : 500},
       function(){
         var loc = resizer.position();
         var x = loc.left;
         var y = loc.top;
         n.css({"width" : x + resizer.width() + 1,
                "height" : y + resizer.height() + 1});
-        
-        txt.css({"width" : n.width() - 5, "height" : n.height() - bar.height() - 5});
+			   
+	    txt.css({"width" : n.width() - textAreaMargin, "height" : n.height() - bar.height() - textAreaMargin});
         
         positionLeft();
         positionRight();
@@ -122,6 +123,7 @@
 		updateConnections();
       });
     });
+
 
     function updateConnections(){
        for (var i in curr.connections){
@@ -140,7 +142,7 @@
       currentNode = curr;
       n.css("z-index", zindex++);
       e.preventDefault();
-      startDrag(n, {left : 10, top: 40, right : win.width() - n.width() - 10, bottom : win.height() - n.height() - 10},
+      startDrag(n, {left : 10, top: controlHeight + 10, right : win.width() - n.width() - 10, bottom : win.height() - n.height() - 10},
       updateConnections);
     });
     
@@ -167,6 +169,8 @@
     },topHeight);
     loops.push(id);
   }
+  
+  
 
  }
  

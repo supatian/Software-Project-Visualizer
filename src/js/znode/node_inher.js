@@ -8,12 +8,14 @@ extend = function(subClass, baseClass) {
      subClass.superClass = baseClass.prototype;  
      }
  
- function Node(xp, yp, w, h, noDelete, forceId){
+ function NodeInher(xp, yp, w, h, noDelete, forceId, srcCode){
  
      // call the baseclass constructor
-     Node.baseConstructor.call(this, xp, yp, w, h, noDelete, forceId); 
+     NodeInher.baseConstructor.call(this, xp, yp, w, h, noDelete); 	 
 	 
-	  this.connections = {};
+     this.id = getNodeId();
+	 
+	 this.connections = {};
      var connectionIndex = 0;
 	 var curr = this;
 	 var topMargin = 50;
@@ -32,8 +34,8 @@ extend = function(subClass, baseClass) {
       var ex = $(".node .ex").last();
       ex.css({"position":"absolute","padding-right" : 2, "padding-top" : 1, "padding-left" : 2,
               "color" : "white", "font-family" : "sans-serif",
-              "top" : 0, "left": 0, "cursor": "pointer",
-              "font-size" : "7px", "background-color" : "gray", "z-index" : 100});
+              "top" : 2, "left": exMargin, "cursor": "pointer",
+              "font-size" : exSize, "background-color" : nodeBgColor, "z-index" : 100});
       ex.hover(function(){
         ex.css("color","black");
       }, function(){
@@ -46,20 +48,18 @@ extend = function(subClass, baseClass) {
       });
     }
 	
-	var nodeWidth = n.width();
-    var nodeHeight = n.height();
-	n.append("<div class='sourcecode'>SRC");		 
+	n.append("<div class='sourcecode'>source");		 
 	var sourcecode = $(".node .sourcecode").last();
     
     sourcecode.css({"position" : "absolute" , "z-index" : 10,
-                 "width" : "28px", "height" : "13px",
-                 "left" : nodeWidth + 9 - n.width() , "top" : nodeHeight + 2 - n.height(),
-                 "font-size" : "11px",
-				 "font-family": "Monospace", "text-align": "center",
+                 "width" : "50px", "height" : "12px",
+                 "left" : 14, "top" : 2,
+                 "font-size" : "11px", "line-height": "6px",
+				 "font-family": "Verdana", "text-align": "center", "padding-top" : "1px",
                  "border" : "1px solid white",				 
 				 "border-radius": "3px",
 				 "box-shadow": "inset 0 35px 35px -18px #95B9C7, inset 3px 0 12px #600",
-				 "background-color": "white",
+				 "background-color": nodeBgColor,
                  "cursor" : "pointer"});
 				 
     sourcecode.hover(function(){
@@ -67,28 +67,7 @@ extend = function(subClass, baseClass) {
 		function(){
         sourcecode.css("background-color","white");
       });
-	  
-	n.append("<div class='variable'>VAR");		 
-	var variable = $(".node .variable").last();
-    
-    variable.css({"position" : "absolute" , "z-index" : 10,
-                 "width" : "28px", "height" : "13px",
-                 "left" : nodeWidth + 40 - n.width() , "top" : nodeHeight + 2 - n.height(),
-                 "font-size" : "11px",
-				 "font-family": "Monospace", "text-align": "center",
-                 "border" : "1px solid white",
-				 "border-radius": "3px",
-				 "box-shadow": "inset 0 35px 35px -18px #95B9C7, inset 3px 0 12px #600",
-				 "background-color": "white",
-                 "cursor" : "pointer"});
-				 
-    variable.hover(function(){
-        variable.css("background-color","gray")},
-		function(){
-        variable.css("background-color","white");
-      });  
- 
-    
+	     
 	var left = $(".node .left").last();   
     var top = $(".node .top").last();
     var right = $(".node .right").last();
@@ -102,7 +81,7 @@ extend = function(subClass, baseClass) {
      
     function setupConnection(div){
       div.css({"position" : "absolute", "width" : "10px", "padding":0,
-               "height" : "10px", "background-color" : "#aaaaaa",
+               "height" : "10px", "background-color" : nodeBgColor,
                "font-size" : "1px", "cursor" : "pointer"});
     }
     
@@ -153,6 +132,7 @@ extend = function(subClass, baseClass) {
      }
      n.remove();
      delete nodes[this.id];
+	 this.srcNode.hide();;
    }
 	
 	sourcecode.mousedown(function(e){
@@ -160,19 +140,14 @@ extend = function(subClass, baseClass) {
         currentNode = srcNode;
     });
 	
-    variable.mousedown(function(e){
-       varNode.toggle();
-       currentNode = varNode;
-    });
 	
 	this.txt = $(".node .txt").last();
 	
-    var srcNode = new NodeTxt(10, topMargin, nodeTxtWidth, win.height()/2-topMargin);
+    var srcNode = new NodeSrc(10, topMargin, nodeTxtWidth, win.height()/2-topMargin, srcCode, "");
 	this.srcNode = srcNode;
-	//var varNode = new NodeTxt(10, win.height()/2, nodeTxtWidth, win.height()/2-topMargin);
  }
  
-extend(Node, NodeBase);
+extend(NodeInher, NodeBase);
 
 
  

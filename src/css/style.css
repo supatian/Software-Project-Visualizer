@@ -3,8 +3,9 @@ body, html{
   padding : 0;
   overflow : hidden;
 }
+
 #canvas{
-  background-color : white;
+  background-color : #F0FAFF;
 }
 #overlay{
   position: absolute;
@@ -16,8 +17,8 @@ body, html{
 #controls{
   width : 100%;
   height : 43px;
-  background-image: -moz-linear-gradient(top, #95B9C7, white);
-  background-image: -webkit-gradient(linear,left top,right bottom,color-stop(0, #95B9C7),color-stop(1, white));	
+  background-image: -moz-linear-gradient(top, #357EC7, white);
+  background-image: -webkit-gradient(linear,left top,right bottom,color-stop(0, #357EC7),color-stop(1, white));	
   border-top : none;
   border-left : none;
   border-right : none;
@@ -35,33 +36,6 @@ body, html{
   background-color : #efefef;
 }
 
-#new #subMenu {
-	position: relative;
-	-moz-transform: translate(0, 5px);
-	-webkit-transform: translate(0, 5px);
-	height: 5;
-	z-index: -1;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-}
-#new #subMenu li {
-	display: block;
-	text-align: center;
-}
-
-#new #subMenu .btn{
-  padding: 17px 8px 13px 8px;
-  height : 10px;
-  margin: 0px 0px 0px 2px;
-  float: none;
-  cursor : pointer;
-  font-family: Verdana;
-  font-size : 12px;
-  background-color : #efefef;
- }
-
-#new:hover > #subMenu { z-index: 2 }
 
 #logo{
   position : relative;
@@ -70,7 +44,8 @@ body, html{
   font-size : 24px;
   color : black;
   padding-left : 5px;
-  margin : 10px;
+  margin : 10px;  
+  cursor : pointer;
 }
 
 #openWin{
@@ -86,8 +61,7 @@ body, html{
 
 #files{
   position : relative;
-  margin : 10px;
-  
+  margin : 10px;  
   background-color : white;
   width : 230px;
   height : 450px;
@@ -108,6 +82,7 @@ input{
   border : 1px solid gray;
   color : gray;
   padding : 4px;
+  width: 200px;
 }
 #saveForm{
   position : relative;
@@ -140,5 +115,78 @@ li, .file {
 textarea, input{ 
   outline:none;
 }
+
+
+.btn_large{ 
+  	display: block;
+	float: center;
+    text-align:center;
+	color: #fff;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	padding: 20px 10px 20px 10px;
+	height: 40px;
+    width:140px;
+	line-height: 28px;
+	margin-top: 30px;    
+    margin-left:auto;
+    margin-right:auto;
+	position: relative;
+	background-color: #4C787E;
+	box-shadow: inset 0 35px 35px -18px #4C787E, inset 3px 0 12px #600;
+	background-image: -moz-linear-gradient(top, #4C787E, #000000);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #4C787E),color-stop(1, #000000));
+	-o-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-webkit-transition: all 0.5s ease-out;
+}
+.btn_large:hover {
+	border: none;
+	box-shadow: inset 0 -35px 35px -18px #7A7A7A, inset 3px 0 12px #600;
+	background-image: -moz-linear-gradient(top, #000000, #7A7A7A);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #000000),color-stop(1, #7A7A7A));
+	padding-right: 20px
+}
+
+
+#logo_large{
+  font-family : Impact;
+  font-size : 45px;
+  color : white;
+  padding-top :8%;
+  padding-bottom:5%;
+  margin-left:auto;
+  margin-right:auto;
+  width:auto;
+  text-align:center;
+}
+
+a {color: white; font-family:fantasy; font-size: 14px; text-decoration:none;}
+a:visited {text-decoration:none; }
+a:hover {text-decoration:none; }
+a:active {text-decoration:none; }
+
+#main{
+  background-color: #95B9C7;
+  background-position: center center;
+  background-repeat: no-repeat;  
+  background: -webkit-gradient(radial, center center, 0, center center, 460, from(#95B9C7), to(#2F2727));  
+}
+
+#viewmain{
+ }
+
+#view {
+  position : relative;
+  float : right;
+  font-family:fantasy;
+  font-size : 14px;
+  color : gray;
+  padding-top : 15px;
+  margin : 10px;  
+}
+
+.highlight { background: yellow; }
 
 

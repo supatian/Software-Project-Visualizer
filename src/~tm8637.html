@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Software Project Visualizer</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" /> 
+    <script type="text/javascript" src="js/libs/jquery.min.js"></script>
+    <script type="text/javascript" src="js/libs/jquery.color.js"></script>
+    <script type="text/javascript" src="js/libs/raphael.js"></script>
+	<script type="text/javascript" src="js/znode/global.js"></script>
+	<script type="text/javascript" src="js/znode/nodebase.js"></script>
+	<script type="text/javascript" src="js/znode/nodeext.js"></script>
+    <script type="text/javascript" src="js/znode/nodegraph.js"></script>
+    <script type="text/javascript" src="js/znode/ui.js"></script>
+  </head>
+  <body>
+    <div id="openWin">
+      <div id="fileTitle">Files:</div>
+      <div id="files"></div>
+    </div>
+	<textarea id="textbox1" cols="30" rows="10">
+	copy source code and paste it here
+    </textarea>
+	<textarea id="textbox2" cols="30" rows="30">
+	copy source code and paste it here
+    </textarea>
+    <div id="overlay"></div>	
+    <div id="controls">      
+      <div id="save" class="btn">Save</div>
+      <div id="open" class="btn">Open</div>
+      <div id="clear" class="btn">Clear All</div>
+      <div id="help" class="btn">Help</div>
+      <div id="saveForm">
+        <form id="nameForm">
+         FileName :
+         <input type="text" name="filename" id="filename" spellcheck="false"/>
+        </form>
+      </div>
+	  <div id="logo">Software Project Visualizer</div>
+    </div>
+    <div id="canvas"></div>
+  </body>
+</html>
+  

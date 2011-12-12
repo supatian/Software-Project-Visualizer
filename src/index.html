@@ -4,36 +4,13 @@
     <meta charset="utf-8" />
     <title>Software Project Visualizer</title>
     <link rel="stylesheet" href="css/style.css" type="text/css" /> 
-    <script type="text/javascript" src="js/libs/jquery.min.js"></script>
-    <script type="text/javascript" src="js/libs/jquery.color.js"></script>
-    <script type="text/javascript" src="js/libs/raphael.js"></script>
-	<script type="text/javascript" src="js/znode/global.js"></script>
-	<script type="text/javascript" src="js/znode/nodebase.js"></script>
-	<script type="text/javascript" src="js/znode/nodetxt.js"></script>
-	<script type="text/javascript" src="js/znode/nodeext.js"></script>
-    <script type="text/javascript" src="js/znode/nodegraph.js"></script>
-    <script type="text/javascript" src="js/znode/ui.js"></script>
   </head>
-  <body>
-    <div id="openWin">
-      <div id="fileTitle">Files:</div>
-      <div id="files"></div>
-    </div>
-    <div id="overlay"></div>	
-    <div id="controls">      
-      <div id="save" class="btn">Save</div>
-      <div id="open" class="btn">Open</div>
-      <div id="clear" class="btn">Clear All</div>
-      <div id="help" class="btn">Help</div>
-      <div id="saveForm">
-        <form id="nameForm">
-         FileName :
-         <input type="text" name="filename" id="filename" spellcheck="false"/>
-        </form>
-      </div>
-	  <div id="logo">Software Project Visualizer</div>
-    </div>
-    <div id="canvas"></div>
+  <body id="main">
+      <div id="logo_large">Software Project Visualizer</div>	
+	  <div id="source" class="btn_large"><a href="html/source.html">source code view</a></div> 
+      <div id="inheritance" class="btn_large"><a href="html/inherit.html">inheritance view</a></div>
+      <div id="composition" class="btn_large"><a href="html/compos.html">composition view</a></div>
+      <div id="globvar" class="btn_large"><a href="html/globvar.html">global variable view</a></div>
   </body>
 </html>
   
